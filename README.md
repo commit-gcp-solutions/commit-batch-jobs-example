@@ -22,8 +22,8 @@ In order to run this demo, you will need to have a Google Cloud account and a pr
 ### Setting Up the Environment
 1. The first step is to clone the repository and install the required dependencies. You can do this by running the following commands:
 ```bash
-git clone <repo>
-cd <repo>
+git clone https://github.com/commitgcp/commit-batch-jobs-example
+cd commit-batch-jobs-example
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
