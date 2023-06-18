@@ -19,18 +19,18 @@ generate_large_csv(input_file, 1000000)
 # Split the large CSV file into smaller chunks and upload them to the Cloud Storage bucket
 input_file = 'demo/large_data.csv'
 output_dir = os.path.splitext(input_file)[0] + '_chunks'
-bucket_name = 'neuklix-demo-bucket'
 num_chunks = split_csv(input_file, 10000, output_dir, bucket_name)
 print(f"The file was divided into {num_chunks} chunks.")
 
 # create a random 4 digit number to be used as a job name
 job_name = f"script-job-{random.randint(1000, 9999)}"
+
+# Create a script job with the custom command and the number of parallel tasks equal to the number of chunks
 create_script_job_with_bucket(
     project_id, 
     region, 
     job_name, 
     bucket_name, 
     custom_command="sudo apt-get install python3-pip -y; cd /mnt/share/scripts/process_chunk; pip3 install -r requirements.txt; python3 process_chunk.py", 
-    # num_of_parallel_tasks=num_chunks
-    num_of_parallel_tasks=1
+    num_of_parallel_tasks=num_chunks
 )

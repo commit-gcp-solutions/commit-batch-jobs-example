@@ -36,7 +36,7 @@ gsutil mb -l <region> gs://<bucket_name>
 
 3. To upload the process_chunk script and it's requirements.txt file to the bucket, run the following commands:
 ```bash
-gsutil cp -r ./process_chunk/   gs://<bucket_name>/scripts
+gsutil cp -r ./process_chunk/  gs://<bucket_name>/scripts/
 ```
 
 4. Next, take the .env.example file and rename it to .env. Then, fill in the values for the environment variables in the .env file. The environment variables are used to configure the batch job and the Cloud Storage bucket. The following table provides a description of each environment variable:
@@ -51,6 +51,15 @@ gsutil cp -r ./process_chunk/   gs://<bucket_name>/scripts
 ```bash
 python orchestration.py
 ```
+
+While the script is running you can go ahead and check in the Cloud Console that the batch job has been created and is running. You can also check the Cloud Storage bucket to see that the CSV chunks are being uploaded and the processed chunks are being created.
+
+Once the Batch Job starts, you will be able to see that some Compute Engine instances are being created. These instances are used to run the tasks of the batch job. You can also see that the Compute Engine instances are being deleted once the batch job is completed.
+
+After running the orchestration script, you should have in your bucket the following files:
+- A folder named scripts/ containing the process_chunk script and it's requirements.txt file.
+- A folder named large_data/ containing all the chunks of the large CSV file.
+- Once the batch job is completed, a folder named processed/ within the large_data/ folder containing the processed chunks.
 
 ## Detailed Explanation: batch_jobs.py
 
